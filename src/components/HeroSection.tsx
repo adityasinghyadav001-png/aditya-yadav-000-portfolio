@@ -21,7 +21,7 @@ const HeroSection = () => {
           <img
             src={profileImg}
             alt="Aditya Yadav"
-            className="relative w-36 h-36 rounded-full object-cover border-2 border-transparent profile-glow"
+            className="relative w-48 h-48 rounded-full object-cover border-2 border-transparent profile-glow"
             style={{ borderColor: "rgba(0,212,255,0.3)" }}
           />
         </div>

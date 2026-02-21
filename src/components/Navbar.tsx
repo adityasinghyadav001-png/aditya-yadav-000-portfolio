@@ -7,6 +7,7 @@ const navItems = [
   { label: "Skills", href: "#skills" },
   { label: "Services", href: "#services" },
   { label: "Projects", href: "#projects" },
+  { label: "Certifications", href: "#certifications" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -49,8 +50,9 @@ const Navbar = () => {
         {/* CTA */}
         <div className="hidden md:flex items-center gap-3">
           <a
-            href="#"
-            className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 gradient-border"
+            href="/resume.pdf"
+            download="Aditya_Yadav_Resume.pdf"
+            className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300"
             style={{ background: "var(--glass-bg)" }}
           >
             <Download size={14} className="text-primary" />

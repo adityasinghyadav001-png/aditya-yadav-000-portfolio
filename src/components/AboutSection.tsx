@@ -3,7 +3,7 @@ import { GraduationCap, Lightbulb, Globe, Users } from "lucide-react";
 
 const timeline = [
   {
-    year: "2024–2029",
+    year: "2025–2029",
     title: "B.Tech Computer Science (AI/ML)",
     org: "NxtWave × Noida International University",
     detail: "Specializing in Artificial Intelligence & Machine Learning",

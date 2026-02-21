@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import emailjs from "@emailjs/browser";
 import { Mail, Phone, Instagram, Youtube, Linkedin, Github, Copy, Check, Send } from "lucide-react";
 
 const socialLinks = [
@@ -6,7 +7,7 @@ const socialLinks = [
     icon: <Instagram size={20} />,
     label: "Instagram",
     value: "@adityakvideos",
-    href: "https://www.instagram.com/adityakvideos",
+    href: "https://www.instagram.com/adityakvideos_",
     color: "hsl(330 80% 60%)",
   },
   {
@@ -34,6 +35,7 @@ const socialLinks = [
 
 const ContactSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
   const [copied, setCopied] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [sent, setSent] = useState(false);
@@ -54,11 +56,27 @@ const ContactSection = () => {
   };
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  e.preventDefault();
+
+  if (!formRef.current) return;
+
+  emailjs.sendForm(
+    "service_gs8okpn",   // <-- yaha apna service id
+    "template_0tnceag",  // <-- yaha template id
+    formRef.current,
+    "G42exIp8UKUceAia7"    // <-- yaha public key
+  )
+  .then(() => {
     setSent(true);
     setForm({ name: "", email: "", message: "" });
+    formRef.current?.reset();
     setTimeout(() => setSent(false), 3000);
-  };
+  })
+  .catch((error) => {
+    console.log(error);
+    alert("Failed to send message ❌");
+  });
+};
 
   return (
     <section id="contact" ref={sectionRef} className="relative py-32 px-6">
@@ -138,7 +156,11 @@ const ContactSection = () => {
 
           {/* Contact form */}
           <div className="section-fade">
-            <form onSubmit={handleSubmit} className="glass-card rounded-2xl p-8 border border-white/8 shadow-glass space-y-6">
+            <form
+              ref={formRef}
+              onSubmit={handleSubmit}
+              className="glass-card rounded-2xl p-8 border border-white/8 shadow-glass space-y-6"
+            >
               <h3 className="font-orbitron text-lg font-bold gradient-text mb-2">Send a Message</h3>
 
               <div className="space-y-4">
@@ -146,6 +168,7 @@ const ContactSection = () => {
                   <label className="block text-xs text-muted-foreground mb-2 font-mono tracking-wider">NAME</label>
                   <input
                     type="text"
+                    name="from_name"
                     required
                     value={form.name}
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
@@ -159,6 +182,7 @@ const ContactSection = () => {
                   <label className="block text-xs text-muted-foreground mb-2 font-mono tracking-wider">EMAIL</label>
                   <input
                     type="email"
+                    name="from_email"
                     required
                     value={form.email}
                     onChange={(e) => setForm({ ...form, email: e.target.value })}
@@ -171,6 +195,7 @@ const ContactSection = () => {
                 <div>
                   <label className="block text-xs text-muted-foreground mb-2 font-mono tracking-wider">MESSAGE</label>
                   <textarea
+                    name="message"
                     required
                     rows={5}
                     value={form.message}
