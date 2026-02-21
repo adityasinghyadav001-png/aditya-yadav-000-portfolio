@@ -12,3 +12,8 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+User-agent: *
+Allow: /
+
+Sitemap: https://aditya-yadav-000-portfolio.vercel.app/sitemap.xml
